@@ -28,5 +28,12 @@ namespace myFirstAzureWebApp.Controllers
 
             return View();
         }
+
+        public ActionResult MyView()
+        {
+            ViewBag.Message = "Your myView page.";
+
+            return View();
+        }
     }
 }
