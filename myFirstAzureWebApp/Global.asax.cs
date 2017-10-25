@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Microsoft.Azure.KeyVault;
+using System.Web.Configuration;
+using myFirstAzureWebApp.Utilities;
 
 namespace myFirstAzureWebApp
 {
@@ -16,6 +19,13 @@ namespace myFirstAzureWebApp
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            var kv = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(EncryptionHelper.GetToken));
+            var sec = kv.GetSecretAsync(WebConfigurationManager.AppSettings["SecretUri"]);
+
+            //I put a variable in a Utils class to hold the secret for general  application use.
+            EncryptionHelper.EncryptSecret = sec.Result.Value;
+
         }
     }
 }

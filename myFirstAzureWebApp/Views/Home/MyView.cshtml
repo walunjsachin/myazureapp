@@ -1,7 +1,17 @@
-﻿
+﻿@using myFirstAzureWebApp.Utilities;
 @{
     ViewBag.Title = "My New View";
+
+    var imagePath = "";
+    imagePath = EncryptionHelper.Getimage();
 }
 
 <h2>My New View from Git Hub</h2>
 
+@if (imagePath != "")
+{
+    <div class="result">
+        <img src="@imagePath" alt="image" />
+
+    </div>
+}
