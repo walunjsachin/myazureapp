@@ -21,7 +21,7 @@ namespace myFirstAzureWebApp
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             var kv = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(EncryptionHelper.GetToken));
-            var sec = kv.GetSecretAsync(WebConfigurationManager.AppSettings["SecretUri"]);
+            var sec = kv.GetSecretAsync(ConfigReader.GetApplicationString("SecretUri"));
 
             //I put a variable in a Utils class to hold the secret for general  application use.
             EncryptionHelper.EncryptSecret = sec.Result.Value;
